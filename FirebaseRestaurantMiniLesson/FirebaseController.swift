@@ -7,3 +7,15 @@
 //
 
 import Foundation
+import Firebase
+
+class FirebaseController {
+    
+    static let base = Firebase(url: "https://local-restaurant.firebaseio.com")
+    static let restaurantBase = base.childByAppendingPath("Restaurants")
+    
+}
+
+
+
+
