@@ -40,10 +40,13 @@ class RestaurantListViewController: UIViewController {
                 let address = textfields[1].text,
                 let category = textfields[2].text {
                     
-                    let restaurantDictionary = ["name":name, "address":address, "category":category]
-                    RestaurantController.sharedController.addRestaurant(Restaurant(dictionary: restaurantDictionary))
+                    if textfields[0].hasText() && textfields[1].hasText() && textfields[2].hasText() {
+                        let restaurantDictionary = ["name":name, "address":address, "category":category]
+                        RestaurantController.sharedController.addRestaurant(Restaurant(dictionary: restaurantDictionary))
+                    } else {
+                       self.failureAlert()
+                    }
             }
-            
         }
         alert.addAction(save)
         
@@ -60,6 +63,13 @@ class RestaurantListViewController: UIViewController {
         presentViewController(alert, animated: true, completion: nil)
     }
 
+    func failureAlert() {
+        let alert = UIAlertController(title: "Failure to Save Restaurant", message: "Please enter all required details", preferredStyle: UIAlertControllerStyle.Alert)
+        let ok = UIAlertAction(title: "OK", style: UIAlertActionStyle.Cancel, handler: nil)
+        alert.addAction(ok)
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     
     func restaurantsUpdated(notification: NSNotification) {
         tableView.reloadData()
